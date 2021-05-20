@@ -1,6 +1,6 @@
 package com.jalasoft.project.controller.endpoint;
 
-import com.jalasoft.project.model.convert.ConvertVideoToImage;
+import com.jalasoft.project.model.convert.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +29,15 @@ public class ImageRecognition {
             Files.copy(video.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             File videoFile = path.toFile();
 
-            ConvertVideoToImage convertFile = new ConvertVideoToImage();
-            boolean isConverted = convertFile.convert(videoFile, imagesPath.toFile());
+            AbstractCommand convertCommand = new CommandVideoToImage();
+            /* if (convertCommand instanceof  CommandPdfToImage) {
+                CommandPdfToImage co = (CommandPdfToImage)convertCommand;
+                co.calculate();
+            } */
+            // convertCommand.calculate();
+            String command = convertCommand.build(videoFile, imagesPath.toFile());
+            IExecuter execute = new Execute();
+            boolean isConverted = execute.run(command);
             return isConverted ? "good" : "fail";
         } catch (IOException ex) {
             return ex.getMessage();
