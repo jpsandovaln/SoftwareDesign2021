@@ -1,31 +1,59 @@
 buildscript {
+    ext {
+        springBootVersion = '2.1.6.RELEASE'
+    }
     repositories {
-        mavenCentral()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-plugins {
-    id 'java'
-}
-
+apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+}
+
+configurations {
+    all*.exclude group: 'org.bytedeco', module: 'javacpp-presets'
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+            {
+                exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+            }
+    compile group: "org.springframework.boot", name: "spring-boot-starter-undertow", version: "${springBootVersion}"
+    compile group: "org.springframework.boot", name: "spring-boot-starter-logging", version: "${springBootVersion}"
+    compile group: "org.springframework.boot", name: "spring-boot-starter-actuator", version: "${springBootVersion}"
+    compile group: "org.springframework.boot", name: "spring-boot-starter-aop", version: "${springBootVersion}"
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    compile group: 'ai.djl', name: 'api', version: '0.5.0'
+    implementation "ai.djl.mxnet:mxnet-engine:0.11.0"
+    // https://mvnrepository.com/artifact/ai.djl.mxnet/mxnet-model-zoo
+    implementation group: 'ai.djl.mxnet', name: 'mxnet-model-zoo', version: '0.11.0'
+    // See https://github.com/deepjavalibrary/djl/blob/master/mxnet/mxnet-engine/README.md for more MXNet library selection options
+    runtimeOnly "ai.djl.mxnet:mxnet-native-auto:1.8.0"
+    // https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-nn
+    implementation group: 'org.deeplearning4j', name: 'deeplearning4j-nn', version: '1.0.0-beta7'
+    // https://mvnrepository.com/artifact/log4j/log4j
+    implementation group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'org.datavec', name: 'datavec-data-image', version: '0.6.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    compile("org.springframework.boot:spring-boot-starter-web")
-
 }
 
 test {
