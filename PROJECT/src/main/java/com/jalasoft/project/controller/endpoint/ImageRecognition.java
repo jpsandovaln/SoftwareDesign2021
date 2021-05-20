@@ -30,11 +30,6 @@ public class ImageRecognition {
             File videoFile = path.toFile();
 
             AbstractCommand convertCommand = new CommandVideoToImage();
-            /* if (convertCommand instanceof  CommandPdfToImage) {
-                CommandPdfToImage co = (CommandPdfToImage)convertCommand;
-                co.calculate();
-            } */
-            // convertCommand.calculate();
             String command = convertCommand.build(videoFile, imagesPath.toFile());
             IExecuter execute = new Execute();
             boolean isConverted = execute.run(command);
