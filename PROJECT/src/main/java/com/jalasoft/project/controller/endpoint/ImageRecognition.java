@@ -1,5 +1,8 @@
 package com.jalasoft.project.controller.endpoint;
 
+import com.jalasoft.project.model.algorithm.IAlgorithm;
+import com.jalasoft.project.model.algorithm.PredictionResult;
+import com.jalasoft.project.model.algorithm.ResNet50;
 import com.jalasoft.project.model.convert.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,12 +15,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.FilenameUtils;
 
 @RestController
 public class ImageRecognition {
 
     @PostMapping("/api/v1/image-recognition")
-    public String imageRecognition(@RequestParam MultipartFile video, @RequestParam String word,
+    public List<PredictionResult> imageRecognition(@RequestParam MultipartFile video, @RequestParam String word,
                                    @RequestParam String percentage, @RequestParam String algorithm) {
 
         try {
@@ -33,9 +41,29 @@ public class ImageRecognition {
             String command = convertCommand.build(videoFile, imagesPath.toFile());
             IExecuter execute = new Execute();
             boolean isConverted = execute.run(command);
-            return isConverted ? "good" : "fail";
+
+            IAlgorithm resNet50 = new ResNet50();
+            List<PredictionResult> predictionResultList = new ArrayList<>();
+
+            for (File file : imagesPath.toFile().listFiles()) {
+                List<PredictionResult> resultList = resNet50.predict(file);
+                for (PredictionResult predictionResult : resultList) {
+                    double perOut = predictionResult.getPercentage() * 100;
+                    double perInt = Double.parseDouble(percentage);
+                    if (predictionResult.getObject().contains(word) && perOut >= perInt) {
+                        String fileName = FilenameUtils.getBaseName(file.getName());
+                        predictionResult.setTime(LocalTime.ofSecondOfDay(Long.parseLong(fileName)));
+                        predictionResult.setAlgorithm(algorithm);
+                        predictionResultList.add(predictionResult);
+                        break;
+                    }
+                }
+            }
+            return predictionResultList;
         } catch (IOException ex) {
-            return ex.getMessage();
+            return null;
+        } catch (Exception ex) {
+            return null;
         }
     }
 }
