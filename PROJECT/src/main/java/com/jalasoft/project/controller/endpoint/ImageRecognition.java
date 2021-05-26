@@ -2,7 +2,6 @@ package com.jalasoft.project.controller.endpoint;
 
 import com.jalasoft.project.model.algorithm.IAlgorithm;
 import com.jalasoft.project.model.algorithm.PredictionResult;
-import com.jalasoft.project.model.algorithm.ResNet50;
 import com.jalasoft.project.model.convert.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalTime;
@@ -30,34 +28,33 @@ public class ImageRecognition {
 
         try {
             Files.createDirectories(Paths.get("images/"));
-            Path imagesPath = Paths.get("images/");
+            var imagesPath = Paths.get("images/");
 
             Files.createDirectories(Paths.get("inputVideo/"));
-            Path path = Paths.get("inputVideo/" + video.getOriginalFilename());
+            var path = Paths.get("inputVideo/" + video.getOriginalFilename());
             Files.copy(video.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            File videoFile = path.toFile();
+            var videoFile = path.toFile();
 
             AbstractCommand convertCommand = new CommandVideoToImage();
-            String command = convertCommand.build(videoFile, imagesPath.toFile());
+            var command = convertCommand.build(videoFile, imagesPath.toFile());
             IExecuter execute = new Execute();
             boolean isConverted = execute.run(command);
 
-            IAlgorithm resNet50 = new ResNet50();
-            List<PredictionResult> predictionResultList = new ArrayList<>();
+            IAlgorithm resNet50 = IAlgorithm.getAlgorithm(algorithm);
+            var predictionResultList = new ArrayList<PredictionResult>();
 
             for (File file : imagesPath.toFile().listFiles()) {
-                List<PredictionResult> resultList = resNet50.predict(file);
-                for (PredictionResult predictionResult : resultList) {
-                    double perOut = predictionResult.getPercentage() * 100;
-                    double perInt = Double.parseDouble(percentage);
-                    if (predictionResult.getObject().contains(word) && perOut >= perInt) {
-                        String fileName = FilenameUtils.getBaseName(file.getName());
-                        predictionResult.setTime(LocalTime.ofSecondOfDay(Long.parseLong(fileName)));
-                        predictionResult.setAlgorithm(algorithm);
-                        predictionResultList.add(predictionResult);
-                        break;
-                    }
-                }
+                var resultList = resNet50.predict(file);
+                var perInt = Double.parseDouble(percentage);
+                var fileName =FilenameUtils.getBaseName(file.getName());
+                resultList.stream()
+                        .filter(value -> value.getObject().contains(word))
+                        .filter(value -> value.getPercentage() * 100 >= perInt)
+                        .forEach(predictionResult -> {
+                            predictionResult.setTime(LocalTime.ofSecondOfDay(Long.parseLong(fileName)));
+                            predictionResult.setAlgorithm(algorithm);
+                            predictionResultList.add(predictionResult);
+                        });
             }
             return predictionResultList;
         } catch (IOException ex) {
