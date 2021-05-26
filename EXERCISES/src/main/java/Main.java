@@ -9,6 +9,9 @@ import wildcards.Employee;
 import wildcards.Person;
 
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -26,7 +29,7 @@ public class Main {
         boolean re = test.validate("hi");
         System.out.println(re);*/
 
-        List<Person> personList = new ArrayList<>();
+        /*List<Person> personList = new ArrayList<>();
         personList.add(new Person("Juan", "Perez"));
         personList.add(new Person("Pepe", "Lopez"));
         displayData(personList);
@@ -74,7 +77,83 @@ public class Main {
         list2.addLast(8);
 
         list2.print();
-        System.out.println("--------------------------------");
+        System.out.println("--------------------------------");*/
+        //////////////////////////////////////////////////////
+
+        // Java 8
+        System.out.println(" ------ List -----------");
+        List<String> list8 = Collections.unmodifiableList(Arrays.asList("a", "b" , "c"));
+        // list8.add("d");
+        list8.stream().forEach(value -> System.out.println(value));
+
+        System.out.println(" ------ SET -----------");
+        Set<String> set8 = Collections.unmodifiableSet(new HashSet<>(Arrays.asList("a", "b", "c")));
+        //set8.add("d");
+        set8.stream().forEach(value -> System.out.println(value));
+
+        System.out.println(" ------ MAP -----------");
+        Map<String, Integer> map8 = new HashMap<>();
+        map8.put("a", 1);
+        map8.put("b", 2);
+        map8.put("c", 3);
+        map8 = Collections.unmodifiableMap(map8);
+
+        //set8.add("d");
+        set8.stream().forEach(value -> System.out.println(value));
+        map8.forEach((k,v) -> System.out.println(k + " - " + v));
+
+        // java
+        List<String> list9 = List.of("a", "b", "c");
+        //list9.add("d");
+        list9.stream().forEach(value -> System.out.println(value));
+
+        Set<String> set9 = Set.of("a", "b", "c");
+
+        Map<String, Integer> map9 = Map.of("a", 1);
+
+        //////////////////////////////////////////////////////////
+
+
+        List<String> valueList = Arrays.asList("1", "22", "333", "4444", "55555", "777777", "11", "88888888");
+        valueList.forEach(System.out::println);
+        System.out.println("*****************************************");
+
+        // select * from valueList where data = 333
+        valueList.stream()
+                .filter(value -> value.equals("333"))
+                .forEach(value -> System.out.println(value));
+
+        valueList.stream()
+                .filter(value -> Integer.parseInt(value) > 10)
+                .sorted()
+                .forEach(System.out::println);
+
+        System.out.println(" ------------------takewhile -------------");
+        valueList.stream()
+                .takeWhile(value -> value.length() < 4)
+                .forEach(System.out::println);
+
+        System.out.println(" ----------------dropwhile ------------- ");
+        valueList.stream()
+                .dropWhile(value -> value.length() < 4)
+                .forEach(System.out::println);
+
+
+        IntStream.iterate(0, i -> i + 1).takeWhile(i -> i < 10).forEach(System.out::println);
+
+        System.out.println(" ----------null -----------------------");
+        // Stream<Integer> stream1 = Stream.of(null);
+        // System.out.println(stream1.count());
+
+        Stream<Integer> stream2 = Stream.ofNullable(null);
+        System.out.println(stream2.count());
+
+
+        // var a;
+        // var lambdaTest = () -> {};
+        // var value = null;
+        // var arrays = { 1, 2};
+
     }
 
 
