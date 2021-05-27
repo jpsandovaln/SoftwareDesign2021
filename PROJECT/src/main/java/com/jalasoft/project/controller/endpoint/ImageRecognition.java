@@ -1,8 +1,10 @@
 package com.jalasoft.project.controller.endpoint;
 
+import com.jalasoft.project.controller.component.Properties;
 import com.jalasoft.project.model.algorithm.IAlgorithm;
 import com.jalasoft.project.model.algorithm.PredictionResult;
 import com.jalasoft.project.model.convert.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,9 @@ import org.apache.commons.io.FilenameUtils;
 @RestController
 public class ImageRecognition {
 
+    @Autowired
+    private Properties properties;
+
     @PostMapping("/api/v1/image-recognition")
     public List<PredictionResult> imageRecognition(@RequestParam MultipartFile video, @RequestParam String word,
                                    @RequestParam String percentage, @RequestParam String algorithm) {
@@ -36,7 +41,8 @@ public class ImageRecognition {
             var videoFile = path.toFile();
 
             AbstractCommand convertCommand = new CommandVideoToImage();
-            var command = convertCommand.build(videoFile, imagesPath.toFile());
+            System.out.println(properties.getFfmpeg());
+            var command = convertCommand.build(new Criteria(videoFile, imagesPath.toFile(), properties.getFfmpeg()));
             IExecuter execute = new Execute();
             boolean isConverted = execute.run(command);
 
