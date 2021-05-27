@@ -4,7 +4,7 @@ import java.io.File;
 
 public class CommandPdfToImage extends AbstractCommand {
     @Override
-    public String build(File video, File output) {
+    public String build(Criteria criteria) {
         return null;
     }
 }
