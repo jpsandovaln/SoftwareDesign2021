@@ -6,6 +6,7 @@ import tdd.Util;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class UtilTest {
     @Test
@@ -16,5 +17,17 @@ public class UtilTest {
         int result = Util.getMaxValue(numbers);
 
         assertEquals(expected, result);
+    }
+
+    @Test
+    public  void testList() {
+        List mockedList = mock(List.class);
+
+        when(mockedList.get(0)).thenReturn("A");
+        when(mockedList.get(1)).thenReturn(new Exception("exception position 1"));
+
+        System.out.println(mockedList.get(0));
+        System.out.println(mockedList.get(1));
+        System.out.println(mockedList.get(2));
     }
 }
