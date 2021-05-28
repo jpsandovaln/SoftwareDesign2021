@@ -2,6 +2,7 @@ package com.jalasoft.project.controller.endpoint;
 
 import com.jalasoft.project.controller.component.Properties;
 import com.jalasoft.project.model.algorithm.IAlgorithm;
+import com.jalasoft.project.model.algorithm.ObjectRecognition;
 import com.jalasoft.project.model.algorithm.PredictionResult;
 import com.jalasoft.project.model.convert.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,28 +41,11 @@ public class ImageRecognition {
             Files.copy(video.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             var videoFile = path.toFile();
 
-            AbstractCommand convertCommand = new CommandVideoToImage();
-            System.out.println(properties.getFfmpeg());
-            var command = convertCommand.build(new Criteria(videoFile, imagesPath.toFile(), properties.getFfmpeg()));
-            IExecuter execute = new Execute();
-            boolean isConverted = execute.run(command);
+            ConvertFile convertFile = new ConvertFile();
+            boolean isConverted = convertFile.convert(new Criteria(videoFile, imagesPath.toFile(), properties.getFfmpeg()));
 
-            IAlgorithm resNet50 = IAlgorithm.getAlgorithm(algorithm);
-            var predictionResultList = new ArrayList<PredictionResult>();
-
-            for (File file : imagesPath.toFile().listFiles()) {
-                var resultList = resNet50.predict(file);
-                var perInt = Double.parseDouble(percentage);
-                var fileName =FilenameUtils.getBaseName(file.getName());
-                resultList.stream()
-                        .filter(value -> value.getObject().contains(word))
-                        .filter(value -> value.getPercentage() * 100 >= perInt)
-                        .forEach(predictionResult -> {
-                            predictionResult.setTime(LocalTime.ofSecondOfDay(Long.parseLong(fileName)));
-                            predictionResult.setAlgorithm(algorithm);
-                            predictionResultList.add(predictionResult);
-                        });
-            }
+            ObjectRecognition objectRecognition = new ObjectRecognition();
+            var predictionResultList = objectRecognition.getPredictionList(algorithm, imagesPath.toFile(), percentage, word);
             return predictionResultList;
         } catch (IOException ex) {
             return null;
