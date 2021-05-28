@@ -81,7 +81,7 @@ public class Main {
         //////////////////////////////////////////////////////
 
         // Java 8
-        System.out.println(" ------ List -----------");
+        /*System.out.println(" ------ List -----------");
         List<String> list8 = Collections.unmodifiableList(Arrays.asList("a", "b" , "c"));
         // list8.add("d");
         list8.stream().forEach(value -> System.out.println(value));
@@ -135,7 +135,7 @@ public class Main {
 
         System.out.println(" ----------------dropwhile ------------- ");
         valueList.stream()
-                .dropWhile(value -> value.length() < 4)
+            .dropWhile(value -> value.length() < 4)
                 .forEach(System.out::println);
 
 
@@ -152,7 +152,7 @@ public class Main {
         // var a;
         // var lambdaTest = () -> {};
         // var value = null;
-        // var arrays = { 1, 2};
+        // var arrays = { 1, 2};*/
 
     }
 
