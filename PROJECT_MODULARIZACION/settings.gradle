@@ -1,0 +1,4 @@
+rootProject.name = 'ObjectRecognition'
+include 'main_project'
+include 'convert_project'
+
