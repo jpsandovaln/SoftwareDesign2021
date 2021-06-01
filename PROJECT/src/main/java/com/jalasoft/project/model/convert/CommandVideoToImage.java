@@ -1,9 +1,6 @@
 package com.jalasoft.project.model.convert;
 
-import java.io.File;
-
-public class CommandVideoToImage extends AbstractCommand {
-    // private static final String FFMPEG_PATH = "D:/ffmpeg/ffmpeg ";
+public class CommandVideoToImage implements ICommand  {
     private static final String INPUT_PARAM = " -i ";
     private static final String VIDEO_FRAME_PARAM = " -vf ";
     private static final String VIDEO_FRAME_VALUE = "fps=1 ";
