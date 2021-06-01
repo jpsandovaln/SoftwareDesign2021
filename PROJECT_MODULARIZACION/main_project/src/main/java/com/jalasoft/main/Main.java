@@ -1,14 +1,12 @@
 package com.jalasoft.main;
 
-import com.jalasoft.convert.TestConvert;
-import com.jalasoft.machine_learning.TestMachine;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.SpringApplication;
 
+@SpringBootApplication
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello...");
-        TestConvert testConvert = new TestConvert();
-        System.out.println(testConvert.getConvertData());
-        TestMachine da = new TestMachine();
-        System.out.println(da.getData());
+        SpringApplication.run(Main.class, args);
     }
 }
