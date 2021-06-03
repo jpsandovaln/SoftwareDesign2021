@@ -1,3 +1,3 @@
 module convert_project {
-    exports com.jalasoft.convert;
+    exports com.jalasoft.convert.convert_file;
 }

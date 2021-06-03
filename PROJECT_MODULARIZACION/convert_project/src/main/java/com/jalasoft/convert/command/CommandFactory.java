@@ -1,4 +1,4 @@
-package com.jalasoft.convert;
+package com.jalasoft.convert.command;
 
 public class CommandFactory extends AbstractConvert {
     @Override
