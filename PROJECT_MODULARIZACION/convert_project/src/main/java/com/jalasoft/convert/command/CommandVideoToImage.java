@@ -1,6 +1,6 @@
-package com.jalasoft.convert;
+package com.jalasoft.convert.command;
 
-import java.io.File;
+import com.jalasoft.convert.convert_file.Criteria;
 
 public class CommandVideoToImage implements ICommand  {
     // private static final String FFMPEG_PATH = "D:/ffmpeg/ffmpeg ";

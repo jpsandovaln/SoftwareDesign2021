@@ -1,4 +1,4 @@
-package com.jalasoft.convert;
+package com.jalasoft.convert.command;
 
 public abstract class AbstractConvert {
     public final static String VIDEO_TO_IMAGE = "video_to_image";

@@ -1,6 +1,6 @@
-package com.jalasoft.convert;
+package com.jalasoft.convert.command;
 
-import java.io.File;
+import com.jalasoft.convert.convert_file.Criteria;
 
 public class CommandPdfToImage implements ICommand {
     @Override

@@ -5,7 +5,8 @@ import generics.GenericObject;
 import generics.IGeneric;
 import generics.Validation;
 import practice_two.MyCustomList;
-import wildcards.Employee;
+import strategy.Employee;
+import strategy.Exercises;
 import wildcards.Person;
 
 import java.util.*;
@@ -154,6 +155,15 @@ public class Main {
         // var value = null;
         // var arrays = { 1, 2};*/
 
+        Exercises exercises = new Exercises();
+        // exercises.operations("list");
+        // exercises.operations("max");
+        //exercises.operations("fact");
+
+        //exercises.operations2("list");
+
+        Employee employee = new Employee("Juan", "Perez", 10);
+        System.out.println(employee.isValid());
     }
 
 

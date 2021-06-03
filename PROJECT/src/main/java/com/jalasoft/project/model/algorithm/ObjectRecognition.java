@@ -15,7 +15,6 @@ public class ObjectRecognition {
         IAlgorithm currentAlgorithm = abstractAlgorithm.getInstance(algorithm);
 
         var predictionResultList = new ArrayList<PredictionResult>();
-
         for (File file : imagesPath.listFiles()) {
             var resultList = currentAlgorithm.predict(file);
             var perInt = Double.parseDouble(percentage);
