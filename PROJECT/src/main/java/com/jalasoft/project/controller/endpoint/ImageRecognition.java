@@ -35,7 +35,8 @@ public class ImageRecognition {
             Files.copy(video.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             var videoFile = path.toFile();
 
-            return ImageRecognitionFacade.getPredictions(new Criteria(videoFile, imagesPath.toFile(), properties.getFfmpeg()),algorithm, imagesPath.toFile(), percentage, word);
+            Criteria criteria = new CriteriaVideoToImage(videoFile, imagesPath.toFile()).withFfmpeg(properties.getFfmpeg()).build();
+            return ImageRecognitionFacade.getPredictions(criteria,algorithm, imagesPath.toFile(), percentage, word);
         } catch (IOException ex) {
             return null;
         } catch (Exception ex) {
