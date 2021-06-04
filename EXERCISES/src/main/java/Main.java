@@ -1,3 +1,4 @@
+import builder.*;
 import covarience.Car;
 import covarience.Land;
 import covarience.Transport;
@@ -162,8 +163,42 @@ public class Main {
 
         //exercises.operations2("list");
 
-        Employee employee = new Employee("Juan", "Perez", 10);
-        System.out.println(employee.isValid());
+        /*Employee employee = new Employee("Juan", "Perez", 10);
+        System.out.println(employee.isValid());*/
+
+        Student student1 = new Student("Pepe", "Suarez");
+        Student student2 = new Student("Maria", "Arce", 54222);
+
+        List<String> courses = new ArrayList<>();
+        courses.add("math");
+        courses.add("lang");
+        courses.add("his");
+
+        Student student3 = new Student("Ana", "Lopez", 55, courses);
+        testStudent(student1);
+
+        Student student4 = new StudentBuilder("Pepe", "Suarez").build();
+        Student student5 = new StudentBuilder("Maria", "Arce").withCi(544).build();
+        Student student6 = new StudentBuilder("Ana", "Lopez").withCi(55).withCourse("math").withCourse("lang").build();
+
+
+        System.out.println(student4);
+        System.out.println(student5);
+        System.out.println(student6);
+
+
+        Pizza hawaiana = new Pizza("soft", "sweet", "mozzarella", 1, 1);
+        Pizza napolitana = new Pizza("soft", "spicy", "cheddar", "green", 1, 1);
+        Pizza bolognesa = new Pizza("soft", "sweet", "mozzarella", 2, "yes");
+
+
+        Pizza hawaiana2 = new Hawaiana().withHam(1).withPineapple(1).build();
+        Pizza napolitana2 = new Napolitana().build();
+        Pizza napolitana3 = new Napolitana().withBasil(2).build();
+        Pizza bolognesa2 = new Bolognesa().withSauce("spicy").withMeat("yes").build();
+    }
+
+    public static void testStudent(Student student) {
     }
 
 

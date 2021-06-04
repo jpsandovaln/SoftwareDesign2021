@@ -7,6 +7,11 @@ public class Criteria {
     private File outputFile;
     private String ffmpeg;
 
+    public Criteria(File inputFile, File outputFile) {
+        this.inputFile = inputFile;
+        this.outputFile = outputFile;
+    }
+
     public Criteria(File inputFile, File outputFile, String ffmpeg) {
         this.inputFile = inputFile;
         this.outputFile = outputFile;

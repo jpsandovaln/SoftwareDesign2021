@@ -9,8 +9,8 @@ public class ConvertFile {
         /*CommandContext context = new CommandContext(new CommandVideoToImage());
         var command = context.getCommand(criteria);*/
 
-        ICommand command2 = new CommandVideoToImage();
-        var command = command2.build(criteria);
+        ICommand convertCommand = new CommandVideoToImage();
+        var command = convertCommand.build(criteria);
 
         IExecuter execute = new Execute();
         boolean isConverted = execute.run(command);
