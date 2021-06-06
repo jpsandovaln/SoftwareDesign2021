@@ -7,4 +7,6 @@ module main_project {
     requires spring.beans;
     requires spring.web;
     requires spring.context;
+    requires com.sun.jna;
+    requires com.sun.jna.platform;
 }
