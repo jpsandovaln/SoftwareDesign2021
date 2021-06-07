@@ -9,17 +9,26 @@ import ai.djl.repository.zoo.ModelZoo;
 import ai.djl.repository.zoo.ZooModel;
 import ai.djl.training.util.ProgressBar;
 import ai.djl.translate.TranslateException;
+import vgg16.Vgg16Model;
+import vgg16.detectors.Classifier;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws IOException, ModelException, TranslateException {
-        DetectedObjects detection = Main.predict();
-        System.out.println(detection);
+        /* DetectedObjects detection = Main.predict();
+        System.out.println(detection);*/
+        String modelFilePath = "src\\main\\resources\\frozen_inference_graph.pb";
+        String labelMapFilePath = "src\\main\\resources\\labels.txt";
+        String imageFilePath = "src\\main\\resources\\cbba.jpg";
+        Vgg16Model vgg16 = new Vgg16Model(modelFilePath, labelMapFilePath, imageFilePath);
+        List<Classifier.Recognition> result = vgg16.detectObject();
+        result.stream().forEach(value -> System.out.println(value.getTitle() + " - " + value.getConfidence()));
     }
 
     public static DetectedObjects predict() throws IOException, ModelException, TranslateException {
