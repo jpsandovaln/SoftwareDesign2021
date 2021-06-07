@@ -1,3 +1,7 @@
+import adapter.HdmiCable;
+import adapter.HdmiToRcaAdapter;
+import adapter.ICable;
+import adapter.RcaCable;
 import builder.*;
 import covarience.Car;
 import covarience.Land;
@@ -166,7 +170,7 @@ public class Main {
         /*Employee employee = new Employee("Juan", "Perez", 10);
         System.out.println(employee.isValid());*/
 
-        Student student1 = new Student("Pepe", "Suarez");
+        /* Student student1 = new Student("Pepe", "Suarez");
         Student student2 = new Student("Maria", "Arce", 54222);
 
         List<String> courses = new ArrayList<>();
@@ -195,7 +199,20 @@ public class Main {
         Pizza hawaiana2 = new Hawaiana().withHam(1).withPineapple(1).build();
         Pizza napolitana2 = new Napolitana().build();
         Pizza napolitana3 = new Napolitana().withBasil(2).build();
-        Pizza bolognesa2 = new Bolognesa().withSauce("spicy").withMeat("yes").build();
+        Pizza bolognesa2 = new Bolognesa().withSauce("spicy").withMeat("yes").build(); */
+
+        HdmiCable hdmiCable = new HdmiCable();
+        hdmiCable.transmitDataMultimedia();
+
+        RcaCable rcaCable = new RcaCable();
+        /*rcaCable.video();
+        rcaCable.audioR();
+        rcaCable.audioL();*/
+        rcaCable.transmitDataMultimedia();
+
+        ICable cable = new HdmiCable();
+        cable.transmitDataMultimedia();
+
     }
 
     public static void testStudent(Student student) {
