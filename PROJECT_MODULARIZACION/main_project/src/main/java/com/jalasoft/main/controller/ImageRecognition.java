@@ -1,7 +1,7 @@
 package com.jalasoft.main.controller;
 
 import com.jalasoft.convert.convert_file.Criteria;
-import com.jalasoft.machine_learning.PredictionResult;
+import com.jalasoft.machine_learning.object_recognition.PredictionResult;
 import com.jalasoft.main.component.Properties;
 import com.jalasoft.main.service.ImageRecognitionFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,6 @@ public class ImageRecognition {
             var path = Paths.get("inputVideo/" + video.getOriginalFilename());
             Files.copy(video.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             var videoFile = path.toFile();
-            /*boolean isConverted = imageRecognitionFacade.getPredictions(new Criteria(videoFile, imagesPath.toFile(), properties.getFfmpeg()),algorithm, imagesPath.toFile(), percentage, word);
-            return isConverted ? "good" : "bad";*/
             return imageRecognitionFacade.getPredictions(new Criteria(videoFile, imagesPath.toFile(), properties.getFfmpeg()),algorithm, imagesPath.toFile(), percentage, word);
         } catch (IOException ex) {
             return null;
