@@ -1,4 +1,4 @@
-package com.jalasoft.machine_learning;
+package com.jalasoft.machine_learning.algorithm;
 
 import ai.djl.Application;
 import ai.djl.ModelException;
@@ -10,6 +10,7 @@ import ai.djl.repository.zoo.Criteria;
 import ai.djl.repository.zoo.ModelZoo;
 import ai.djl.training.util.ProgressBar;
 import ai.djl.translate.TranslateException;
+import com.jalasoft.machine_learning.object_recognition.PredictionResult;
 import com.jalasoft.machine_learning.exception.AlgorithmException;
 
 import java.io.File;

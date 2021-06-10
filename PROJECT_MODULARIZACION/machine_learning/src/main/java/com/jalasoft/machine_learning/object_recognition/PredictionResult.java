@@ -1,4 +1,4 @@
-package com.jalasoft.machine_learning;
+package com.jalasoft.machine_learning.object_recognition;
 
 import java.time.LocalTime;
 

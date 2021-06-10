@@ -10,6 +10,10 @@ import generics.GenericObject;
 import generics.IGeneric;
 import generics.Validation;
 import practice_two.MyCustomList;
+import prototype.Bus;
+import prototype.BusDriver;
+import prototype.Table;
+import prototype.Wood;
 import strategy.Employee;
 import strategy.Exercises;
 import wildcards.Person;
@@ -201,18 +205,63 @@ public class Main {
         Pizza napolitana3 = new Napolitana().withBasil(2).build();
         Pizza bolognesa2 = new Bolognesa().withSauce("spicy").withMeat("yes").build(); */
 
-        HdmiCable hdmiCable = new HdmiCable();
+        /*HdmiCable hdmiCable = new HdmiCable();
         hdmiCable.transmitDataMultimedia();
 
         RcaCable rcaCable = new RcaCable();
         /*rcaCable.video();
         rcaCable.audioR();
         rcaCable.audioL();*/
-        rcaCable.transmitDataMultimedia();
+        /*rcaCable.transmitDataMultimedia();
 
         ICable cable = new HdmiCable();
-        cable.transmitDataMultimedia();
+        cable.transmitDataMultimedia();*/
 
+        try {
+            Bus bus1 = new Bus(1, "red", 2000, new BusDriver("JUAN", "PEREZ"));
+            Bus bus2 = bus1.clone();
+
+            System.out.println(bus1);
+            System.out.println(bus2);
+
+            bus1.setId(2);
+            bus1.getBusDriver().setFirstName("PEPE");
+
+            System.out.println(bus1);
+            System.out.println(bus2);
+
+            System.out.println("*-*-*-*--*-*--*-*----*");
+
+            Table table1 = new Table("black", "A", new Wood(1, 50));
+            Table table2 = (Table) table1.clone();
+
+            System.out.println(table1);
+            System.out.println(table2);
+
+            table2.setColor("blue");
+            table2.getWood().setPrice(100);
+
+            System.out.println(table1);
+            System.out.println(table2);
+
+            System.out.println("*************************");
+
+            Table table3 = new Table("black", "A", new Wood(1, 50));
+            Table table4 = (Table) table3.deepClone();
+
+            System.out.println(table3);
+            System.out.println(table4);
+
+            table4.setColor("blue");
+            table4.getWood().setPrice(100);
+
+            System.out.println(table3);
+            System.out.println(table4);
+
+
+        } catch (CloneNotSupportedException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public static void testStudent(Student student) {

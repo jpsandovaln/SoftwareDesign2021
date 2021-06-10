@@ -1,5 +1,8 @@
-package com.jalasoft.machine_learning;
+package com.jalasoft.machine_learning.object_recognition;
 
+import com.jalasoft.machine_learning.algorithm.AbstractAlgorithm;
+import com.jalasoft.machine_learning.algorithm.AlgorithmFactory;
+import com.jalasoft.machine_learning.algorithm.IAlgorithm;
 import com.jalasoft.machine_learning.exception.AlgorithmException;
 import org.apache.commons.io.FilenameUtils;
 

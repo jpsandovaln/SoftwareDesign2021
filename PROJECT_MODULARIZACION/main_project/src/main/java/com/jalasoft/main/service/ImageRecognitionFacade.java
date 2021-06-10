@@ -3,8 +3,8 @@ package com.jalasoft.main.service;
 
 import com.jalasoft.convert.convert_file.ConvertFile;
 import com.jalasoft.convert.convert_file.Criteria;
-import com.jalasoft.machine_learning.ObjectRecognition;
-import com.jalasoft.machine_learning.PredictionResult;
+import com.jalasoft.machine_learning.object_recognition.ObjectRecognition;
+import com.jalasoft.machine_learning.object_recognition.PredictionResult;
 import com.jalasoft.machine_learning.exception.AlgorithmException;
 import org.springframework.stereotype.Service;
 

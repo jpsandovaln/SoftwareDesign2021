@@ -1,4 +1,4 @@
-package com.jalasoft.machine_learning;
+package com.jalasoft.machine_learning.algorithm;
 
 public class AlgorithmFactory extends AbstractAlgorithm {
     private final static  String RESNET50 = "resnet50";
