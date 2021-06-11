@@ -3,6 +3,10 @@ import adapter.HdmiToRcaAdapter;
 import adapter.ICable;
 import adapter.RcaCable;
 import builder.*;
+import composite.CompositeProduct;
+import composite.Hardware;
+import composite.Sales;
+import composite.Software;
 import covarience.Car;
 import covarience.Land;
 import covarience.Transport;
@@ -14,6 +18,7 @@ import prototype.Bus;
 import prototype.BusDriver;
 import prototype.Table;
 import prototype.Wood;
+import state.*;
 import strategy.Employee;
 import strategy.Exercises;
 import wildcards.Person;
@@ -217,7 +222,7 @@ public class Main {
         ICable cable = new HdmiCable();
         cable.transmitDataMultimedia();*/
 
-        try {
+        /*try {
             Bus bus1 = new Bus(1, "red", 2000, new BusDriver("JUAN", "PEREZ"));
             Bus bus2 = bus1.clone();
 
@@ -261,7 +266,88 @@ public class Main {
 
         } catch (CloneNotSupportedException ex) {
             System.out.println(ex.getMessage());
-        }
+        }*/
+
+        /*Hardware memory = new Hardware("memory", 100, "abc");
+        Hardware Hdd = new Hardware("Hdd", 200, "xyz");
+        Hardware motherboard = new Hardware("motherboard", 300, "asus");
+
+        Software cd = new Software("Windows", 30, "os");
+
+        CompositeProduct comProduct1 = new CompositeProduct("Pc Gamer");
+        comProduct1.addProduct(memory);
+        comProduct1.addProduct(Hdd);
+
+
+        CompositeProduct comProduct2 = new CompositeProduct("PC1");
+        comProduct2.addProduct(memory);
+        comProduct2.addProduct(Hdd);
+        comProduct2.addProduct(cd);
+
+
+        CompositeProduct comProduct3 = new CompositeProduct("PC2");
+        comProduct3.addProduct(Hdd);
+        comProduct3.addProduct(cd);
+
+        CompositeProduct combo = new CompositeProduct("Combo pc");
+        combo.addProduct(comProduct1);
+        combo.addProduct(comProduct2);
+
+
+        Sales sales1 = new Sales(1);
+        sales1.addProduct(memory);
+        sales1.display();
+
+
+        Sales sales2 = new Sales(2);
+        sales2.addProduct(memory);
+        sales2.addProduct(Hdd);
+        sales2.addProduct(motherboard);
+        sales2.display();
+
+        Sales sales3 = new Sales(3);
+        sales3.addProduct(comProduct3);
+        sales3.addProduct(memory);
+        sales3.display();
+
+        Sales sales4 = new Sales(4);
+        sales4.addProduct(combo);
+        sales4.addProduct(comProduct3);
+        sales4.addProduct(Hdd);
+        sales4.display();*/
+
+        Player player = new Player("track1", "D:/video.mp4");
+        player.execute();
+
+        player.setState(Player.PLAY_STATE);
+        player.execute();
+
+        player.setState(Player.STOP_STATE);
+        player.execute();
+
+        player.setState(Player.PAUSE_STATE);
+        player.execute();
+
+        player.setState(Player.NEXT_STATE);
+        player.execute();
+
+        System.out.println("***************************");
+        PlayStatePattern playStatePattern = new PlayStatePattern("track2", "d:/video2.mp4");
+        playStatePattern.execute();
+
+        playStatePattern.setState(new PlayState());
+        playStatePattern.execute();
+
+        playStatePattern.setState(new StopState());
+        playStatePattern.execute();
+
+        playStatePattern.setState(new PauseState());
+        playStatePattern.execute();
+
+        playStatePattern.setState(new NextState());
+        playStatePattern.execute();
+
+
     }
 
     public static void testStudent(Student student) {
