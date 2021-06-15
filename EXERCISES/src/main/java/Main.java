@@ -10,6 +10,7 @@ import composite.Software;
 import covarience.Car;
 import covarience.Land;
 import covarience.Transport;
+import decorator.*;
 import generics.GenericObject;
 import generics.IGeneric;
 import generics.Validation;
@@ -21,8 +22,10 @@ import prototype.Wood;
 import state.*;
 import strategy.Employee;
 import strategy.Exercises;
+import visitor.*;
 import wildcards.Person;
 
+import javax.swing.*;
 import java.util.*;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -316,7 +319,7 @@ public class Main {
         sales4.addProduct(Hdd);
         sales4.display();*/
 
-        Player player = new Player("track1", "D:/video.mp4");
+        /*Player player = new Player("track1", "D:/video.mp4");
         player.execute();
 
         player.setState(Player.PLAY_STATE);
@@ -331,6 +334,8 @@ public class Main {
         player.setState(Player.NEXT_STATE);
         player.execute();
 
+        player.setState(Player.PREVIOUS_STATE);
+        player.execute();
         System.out.println("***************************");
         PlayStatePattern playStatePattern = new PlayStatePattern("track2", "d:/video2.mp4");
         playStatePattern.execute();
@@ -346,6 +351,69 @@ public class Main {
 
         playStatePattern.setState(new NextState());
         playStatePattern.execute();
+
+        playStatePattern.setState(new PreviousState());
+        playStatePattern.execute();*/
+
+        /*try {
+            Asset video = new VideoToImage("test.mp4", "png");
+            video.convert();
+
+            Asset word = new WordToPdf("result.pdf", "office");
+            word.convert();
+
+            System.out.println("*************************");
+
+            IVisitor visitorLog = new AssetLogVisitor();
+            video.accept(visitorLog);
+            word.accept(visitorLog);
+
+            System.out.println("**-*-*-*-*----*--");
+            VideoToImage video2 = new VideoToImage("test2.mp4", "jpg");
+            System.out.println( video2.getVideoName());
+            IVisitor encrypt = new EncryptVisitor();
+            video2.accept(encrypt);
+            System.out.println(video2.getVideoName());
+
+
+
+
+        }catch (Exception ex) {
+            ex.getMessage();
+        }*/
+
+        JFrame frame = new JFrame("Test");
+
+        ButtonComponent accept = new PrimaryButton("Accept");
+        accept.setStyle();
+
+        ButtonComponent cancel = new SecondButton("Cancel");
+        cancel.setStyle();
+
+        System.out.println(" ****************************************");
+        accept = new GreenStyle(accept);
+        accept.setStyle();
+
+        ButtonComponent accept2 = new GreenStyle(new PrimaryButton("Accept 2"));
+        accept2.setStyle();
+
+        System.out.println("*-*-*-*-*-*---*---*");
+
+        ButtonComponent accept3 = new BorderStyle(new GreenStyle(new PrimaryButton("Accept3")));
+        accept3.setStyle();
+
+        ButtonComponent cancel2 = new BorderStyle(new SecondButton("Cancel 2"));
+        cancel2.setStyle();
+
+
+        frame.add(accept3.getButton());
+        frame.add(cancel2.getButton());
+
+        frame.setSize(400, 400);
+        frame.setLayout(null);
+        frame.setVisible(true);
+
+
 
 
     }
