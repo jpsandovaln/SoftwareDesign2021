@@ -6,6 +6,7 @@ public class Player {
     public final static  String STOP_STATE = "stop";
     public final static String PAUSE_STATE = "pause";
     public final static String NEXT_STATE = "next..";
+    public final static String PREVIOUS_STATE = "previous";
 
     private String currentState;
 
@@ -45,6 +46,9 @@ public class Player {
 
         if (NEXT_STATE.equals(this.currentState)) {
             System.out.println("next");
+        }
+        if (PREVIOUS_STATE.equals(this.currentState)) {
+            System.out.println("previous");
         }
     }
 
