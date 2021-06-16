@@ -3,6 +3,10 @@ import adapter.HdmiToRcaAdapter;
 import adapter.ICable;
 import adapter.RcaCable;
 import builder.*;
+import chain.ErrorLogger;
+import chain.InfoLogger;
+import chain.Logger;
+import chain.NoticeLogger;
 import composite.CompositeProduct;
 import composite.Hardware;
 import composite.Sales;
@@ -19,6 +23,9 @@ import prototype.Bus;
 import prototype.BusDriver;
 import prototype.Table;
 import prototype.Wood;
+import proxy.IOperation;
+import proxy.Operation;
+import proxy.OperationProxy;
 import state.*;
 import strategy.Employee;
 import strategy.Exercises;
@@ -382,7 +389,7 @@ public class Main {
             ex.getMessage();
         }*/
 
-        JFrame frame = new JFrame("Test");
+        /*JFrame frame = new JFrame("Test");
 
         ButtonComponent accept = new PrimaryButton("Accept");
         accept.setStyle();
@@ -411,10 +418,35 @@ public class Main {
 
         frame.setSize(400, 400);
         frame.setLayout(null);
-        frame.setVisible(true);
+        frame.setVisible(true);*/
 
+        /*try {
+            IOperation operation = new Operation(5);
+            operation.process();
 
+            System.out.println(" **********************************");
 
+            IOperation operation2 = new OperationProxy(5);
+            operation2.process();
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }*/
+
+        Logger logInfo = new InfoLogger();
+        Logger logNotice = new NoticeLogger();
+        Logger logError = new ErrorLogger();
+
+        logInfo.setNextLogger(logNotice);
+        logNotice.setNextLogger(logError);
+
+        Logger logger = logInfo;
+
+        logger.message("enter method", Logger.INFO);
+        System.out.println(" ************************** ");
+        logger.message("enter method", Logger.NOTICE);
+        System.out.println(" ************************** ");
+        logger.message("enter method", Logger.ERROR);
 
     }
 
