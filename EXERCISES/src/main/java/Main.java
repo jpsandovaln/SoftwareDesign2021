@@ -3,10 +3,7 @@ import adapter.HdmiToRcaAdapter;
 import adapter.ICable;
 import adapter.RcaCable;
 import builder.*;
-import chain.ErrorLogger;
-import chain.InfoLogger;
-import chain.Logger;
-import chain.NoticeLogger;
+import chain.*;
 import composite.CompositeProduct;
 import composite.Hardware;
 import composite.Sales;
@@ -18,6 +15,7 @@ import decorator.*;
 import generics.GenericObject;
 import generics.IGeneric;
 import generics.Validation;
+import observer.*;
 import practice_two.MyCustomList;
 import prototype.Bus;
 import prototype.BusDriver;
@@ -433,7 +431,7 @@ public class Main {
             System.out.println(ex.getMessage());
         }*/
 
-        Logger logInfo = new InfoLogger();
+        /*Logger logInfo = new InfoLogger();
         Logger logNotice = new NoticeLogger();
         Logger logError = new ErrorLogger();
 
@@ -446,7 +444,37 @@ public class Main {
         System.out.println(" ************************** ");
         logger.message("enter method", Logger.NOTICE);
         System.out.println(" ************************** ");
-        logger.message("enter method", Logger.ERROR);
+        logger.message("enter method", Logger.ERROR);*/
+
+        /*ATM atm100 = new ATM100();
+        ATM atm50 = new ATM50();
+        ATM atm10 = new ATM10();
+
+        atm100.setNextChain(atm50);
+        atm50.setNextChain(atm10);
+
+
+        System.out.println("************************");
+        atm100.dispense(210);
+        System.out.println("************************");
+        atm100.dispense(180);
+        System.out.println("************************");
+        atm100.dispense(370);*/
+
+        IObservableProductNotification ob1 = new ProductNotification();
+
+        ob1.addObserverClient("pc", new Consumer("Maria", "Arce", "maria@gmail.com"));
+        ob1.addObserverClient("pc", new Consumer("Carlos", "Lima", "carlos@gmail.com"));
+
+        ob1.addObserverClient("car", new Consumer("pepe", "Vargas", "pepe@gmail.com"));
+        ob1.addObserverClient("car", new Consumer("Juan", "Perez", "juan@gmail.com"));
+        ob1.addObserverClient("car", new Company("Toyota Bolivia", 123456));
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Add product");
+        String product = sc.next();
+
+        ob1.notifyAllClients(product, "This product is available");
 
     }
 
