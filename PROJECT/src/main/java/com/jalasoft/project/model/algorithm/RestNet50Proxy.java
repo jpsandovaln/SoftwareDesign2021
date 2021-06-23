@@ -21,7 +21,7 @@ public class RestNet50Proxy implements IAlgorithm{
         int current = now.get(Calendar.HOUR_OF_DAY);
         System.out.println(current);
         if (HOUR <= current) {
-            throw new AlgorithmException("Invalid Hour");
+            // throw new AlgorithmException("Invalid Hour");
         }
        return this.resNet50.predict(file);
     }

@@ -4,6 +4,7 @@ import adapter.ICable;
 import adapter.RcaCable;
 import builder.*;
 import chain.*;
+import command.*;
 import composite.CompositeProduct;
 import composite.Hardware;
 import composite.Sales;
@@ -15,6 +16,8 @@ import decorator.*;
 import generics.GenericObject;
 import generics.IGeneric;
 import generics.Validation;
+import memento.Caretaker;
+import memento.Computer;
 import observer.*;
 import practice_two.MyCustomList;
 import prototype.Bus;
@@ -461,7 +464,7 @@ public class Main {
         System.out.println("************************");
         atm100.dispense(370);*/
 
-        IObservableProductNotification ob1 = new ProductNotification();
+        /* IObservableProductNotification ob1 = new ProductNotification();
 
         ob1.addObserverClient("pc", new Consumer("Maria", "Arce", "maria@gmail.com"));
         ob1.addObserverClient("pc", new Consumer("Carlos", "Lima", "carlos@gmail.com"));
@@ -474,8 +477,32 @@ public class Main {
         System.out.println("Add product");
         String product = sc.next();
 
-        ob1.notifyAllClients(product, "This product is available");
+        ob1.notifyAllClients(product, "This product is available"); */
 
+        //Command command = new StartCbbaServer(new CbbaServer());
+        /*Command command = new EndCbbaServer(new CbbaServer());
+
+        Invoker serverAdmin = new Invoker(command);
+        serverAdmin.run();*/
+
+        Computer computer = new Computer("unix", "16GB", "1TB");
+        System.out.println(computer);
+
+        Caretaker caretaker = new Caretaker();
+        caretaker.addComputer(1, computer.backup());
+
+        computer.setHdd("512GB");
+        computer.setMemory("128MB");
+        computer.setOp("Win");
+        System.out.println(computer);
+
+        caretaker.addComputer(2, computer.backup());
+
+        computer.restore(caretaker.getComputer(1));
+        System.out.println(computer);
+
+        computer.restore(caretaker.getComputer(2));
+        System.out.println(computer);
     }
 
     public static void testStudent(Student student) {
