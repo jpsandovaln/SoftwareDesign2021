@@ -6,6 +6,7 @@ public class CommandVideoToImage implements ICommand  {
     private static final String VIDEO_FRAME_VALUE = "fps=1 ";
     private static final  String OUTPUT_IMAGE_NAME = "/%d.jpg";
 
+
     public String build(Criteria criteria) {
         StringBuilder command = new StringBuilder();
         command.append(criteria.getFfmpeg())
